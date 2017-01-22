@@ -18,7 +18,6 @@ def eyes_captured(request):
 
 def driver_eyes_captured(request, driver_id):
     context = { 'sessions' : driver_session(driver_id)}
-    print 'here'
     return render(request, 'eye_capture/driver_eyes.html', context)
 
 def driver_session(driver_id):
@@ -34,14 +33,18 @@ def driver_session(driver_id):
         loc_initial = Point(previous_location.latitude, previous_location.longitude)
         dist = GeoCalculator.distance(loc_final, loc_initial)
         print "delta_time: " + str(delta_time) + " distance: " + str(dist)
-        if delta_time <= 20 and dist >= 0.1 and delta_time != 0:
+        if is_session_breakpoint(delta_time, dist):
             eye_ball = Traffic.eyes(loc_final, loc_initial, delta_time)
             eyes_per_session += eye_ball
         else:
             if eyes_per_session != 0:
+                print "eyes_per_session: " + str(eyes_per_session)
                 sessions.append(eyes_per_session)
                 eyes_per_session = 0
 
         previous_location = locations[i]
     sessions.append(eyes_per_session)
     return sessions
+
+def is_session_breakpoint(delta_time, dist):
+    return delta_time <= 20 and dist >= 0.1 and dist <= 1.5 and delta_time != 0

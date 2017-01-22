@@ -1,3 +1,5 @@
+
+<h1>Driver Sessions and Views Count</h1>
 <ul>
 {% for driver, sessions in driver_sessions.items %}
   <li><a href="{% url 'driver_eyes_captured' driver.id %}">{{ driver.email }} Sessions</a></li>
