@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^first/', views.eye_balls_captured, name='eye_balls_captured')
+    url(r'^eyes/$', views.eyes_captured, name='eyes_captured'),
+    url(r'^eyes/(?P<driver_id>[0-9]+)/$', views.driver_eyes_captured, name='driver_eyes_captured'),
 ]
