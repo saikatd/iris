@@ -43,6 +43,23 @@ class Traffic():
         return (average_speed / 100) * Traffic.GRADIENT_NORMALIZE
 
 
+class SessionBreakPoint():
+
+    DELTA_TIME_THRESHOLD = 20
+    DISTANCE_PER_MINUTE_UPPER_BOUND = 1.5
+
+    @staticmethod
+    def is_session_breakpoint(delta_time, distance):
+        return SessionBreakPoint.delta_time_too_large(delta_time) and SessionBreakPoint.distance_too_large(distance) and delta_time != 0
+
+    @staticmethod
+    def delta_time_too_large(delta_time):
+        return delta_time <= SessionBreakPoint.DELTA_TIME_THRESHOLD
+
+    @staticmethod
+    def distance_too_large(distance):
+        return distance <= SessionBreakPoint.DISTANCE_PER_MINUTE_UPPER_BOUND
+
 class Point():
     def __init__(self, lat, lng):
         self.lat = lat

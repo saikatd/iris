@@ -33,7 +33,7 @@ def driver_session(driver_id):
         loc_initial = Point(previous_location.latitude, previous_location.longitude)
         dist = GeoCalculator.distance(loc_final, loc_initial)
         print "delta_time: " + str(delta_time) + " distance: " + str(dist)
-        if is_session_breakpoint(delta_time, dist):
+        if SessionBreakPoint.is_session_breakpoint(delta_time, dist):
             eye_ball = Traffic.eyes(loc_final, loc_initial, delta_time)
             eyes_per_session += eye_ball
         else:
@@ -45,6 +45,3 @@ def driver_session(driver_id):
         previous_location = locations[i]
     sessions.append(eyes_per_session)
     return sessions
-
-def is_session_breakpoint(delta_time, dist):
-    return delta_time <= 20 and dist >= 0.1 and dist <= 1.5 and delta_time != 0
