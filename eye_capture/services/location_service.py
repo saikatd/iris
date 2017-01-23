@@ -18,7 +18,6 @@ class GeoCalculator():
     def rad(x):
       return float(x) * pi / 180
 
-
     @staticmethod
     def average_speed(loc_final, loc_initial, delta_time):
         return GeoCalculator.distance(loc_final, loc_initial) / delta_time * 60
@@ -35,12 +34,7 @@ class Traffic():
     @staticmethod
     def traffic_factor(loc_final, loc_initial, delta_time):
         speed = GeoCalculator.average_speed(loc_final, loc_initial, delta_time)
-        gradient = Traffic.gradient_factor(speed)
         return abs(100 - speed)
-
-    @staticmethod
-    def gradient_factor(average_speed):
-        return (average_speed / 100) * Traffic.GRADIENT_NORMALIZE
 
 
 class SessionBreakPoint():

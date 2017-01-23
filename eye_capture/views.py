@@ -39,6 +39,7 @@ def driver_session(driver_id):
         else:
             if eyes_per_session != 0:
                 print "eyes_per_session: " + str(eyes_per_session)
+                print
                 sessions.append(eyes_per_session)
                 eyes_per_session = 0
 
