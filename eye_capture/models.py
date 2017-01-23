@@ -14,7 +14,7 @@ class LocationHistory(models.Model):
     dataCalculatedTime = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'traceper_user_was_here'
 
 
@@ -35,5 +35,5 @@ class Driver(models.Model):
     dataCalculatedTime = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'traceper_users'
