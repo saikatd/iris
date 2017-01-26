@@ -45,5 +45,5 @@ class Campaign(models.Model):
     description = models.CharField(max_length=500)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'traceper_groups'
