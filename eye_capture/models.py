@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 class LocationHistory(models.Model):
     id = models.IntegerField(primary_key=True)
-    userId = models.IntegerField()
+    driver = models.ForeignKey('Driver', null=True, db_column='userId')
     dataArrivedTime = models.DateTimeField()
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     altitude = models.DecimalField(max_digits=15, decimal_places=6)
@@ -14,7 +14,7 @@ class LocationHistory(models.Model):
     dataCalculatedTime = models.DateTimeField()
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'traceper_user_was_here'
 
 
@@ -36,7 +36,7 @@ class Driver(models.Model):
     dataCalculatedTime = models.DateTimeField()
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'traceper_users'
 
 class Campaign(models.Model):
