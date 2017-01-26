@@ -22,6 +22,7 @@ class Driver(models.Model):
     id = models.IntegerField(primary_key=True)
     password = models.CharField(max_length=32)
     group = models.IntegerField()
+    campaign = models.ForeignKey('Campaign', null=True)
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
     altitude = models.DecimalField(max_digits=15, decimal_places=6)
@@ -39,11 +40,10 @@ class Driver(models.Model):
         db_table = 'traceper_users'
 
 class Campaign(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=45)
     owner = models.IntegerField()
     description = models.CharField(max_length=500)
 
     class Meta:
-        managed = False
-        db_table = 'traceper_groups'
+        managed = True
+        db_table = 'traceper_campaigns'
