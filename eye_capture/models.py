@@ -37,3 +37,13 @@ class Driver(models.Model):
     class Meta:
         managed = True
         db_table = 'traceper_users'
+
+class Campaign(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=45)
+    owner = models.IntegerField()
+    description = models.CharField(max_length=500)
+
+    class Meta:
+        managed = True
+        db_table = 'traceper_groups'
