@@ -8,8 +8,14 @@ import math
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-def eyes_captured(request):
-    drivers = Driver.objects.all()
+def campaigns(request):
+    campaigns = Campaign.objects.all()
+    context = {'campaigns' : campaigns}
+    return render(request, 'eye_capture/campaigns.html', context)
+
+def eyes_captured(request, campaign_id):
+    campaign_id = 1
+    drivers = Driver.objects.filter(campaign_id=campaign_id)
     driver_sessions = {}
     for driver in drivers:
         driver_sessions[driver] = driver_session(driver.id)
@@ -21,7 +27,7 @@ def driver_eyes_captured(request, driver_id):
     return render(request, 'eye_capture/driver_eyes.html', context)
 
 def driver_session(driver_id):
-    locations = LocationHistory.objects.filter(userId=driver_id).order_by('-dataArrivedTime')
+    locations = LocationHistory.objects.filter(driver=driver_id).order_by('-dataArrivedTime')
     sessions = []
     if locations.count() < 2:
         return sessions

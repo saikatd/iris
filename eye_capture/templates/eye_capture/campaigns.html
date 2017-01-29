@@ -1,0 +1,23 @@
+<h1>Campaigns</h1>
+<table>
+  <tr>
+    <th>campaign name</th>
+    <th>campaign id</th>
+    <th>status</th>
+  </tr>
+  {% for campaign in campaigns %}
+    <tr>
+      <td>{{ campaign.name}}</td>
+      <td>{{ campaign.id }}</td>
+      <td> tick </td>
+    </tr>
+  {% endfor %}
+</table>
+<ul>
+{% for driver, sessions in driver_sessions.items %}
+  <li><a href="{% url 'driver_eyes_captured' driver.id %}">{{ driver.email }} Sessions</a></li>
+  {% for session in sessions %}
+    <div>{{forloop.counter}} - {{session}}</div>
+  {% endfor %}
+{% endfor %}
+</ul>
