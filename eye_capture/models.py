@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class LocationHistory(models.Model):
@@ -43,9 +44,11 @@ class Campaign(models.Model):
     name = models.CharField(max_length=45)
     owner = models.ForeignKey('CampaignOwner', null=True, db_column='owner')
     description = models.CharField(max_length=500)
+    startsAt = models.DateTimeField(default=datetime.now, blank=True)
+    endsAt = models.DateTimeField(default=datetime.now, blank=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'traceper_groups'
 
 
