@@ -1,23 +1,35 @@
-<h1>Campaigns</h1>
-<table>
-  <tr>
-    <th>campaign name</th>
-    <th>campaign id</th>
-    <th>status</th>
-  </tr>
-  {% for campaign in campaigns %}
+<html>
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'eye_capture/css/campaigns.min.css' %}" />
+</head>
+<body>
+  <h1>Campaigns</h1>
+  <table id='campaign_table'>
     <tr>
-      <td>{{ campaign.name}}</td>
-      <td>{{ campaign.id }}</td>
-      <td> tick </td>
+      <th>campaign id</th>
+      <th>campaign name</th>
+      <th>start</th>
+      <th>end</th>
+      <th>status</th>
     </tr>
+    {% for campaign in campaigns %}
+      <tr>
+        <td>{{ campaign.id }}</td>
+        <td><a href="{% url 'eyes_captured' campaign.id %}">{{ campaign.name}}</a></td>
+        <td>{{ campaign.startsAt }}</td>
+        <td>{{ campaign.endsAt }}</td>
+        <td> &#10003; </td>
+      </tr>
+    {% endfor %}
+  </table>
+  <ul>
+  {% for driver, sessions in driver_sessions.items %}
+    <li><a href="{% url 'driver_eyes_captured' driver.id %}">{{ driver.email }} Sessions</a></li>
+    {% for session in sessions %}
+      <div>{{forloop.counter}} - {{session}}</div>
+    {% endfor %}
   {% endfor %}
-</table>
-<ul>
-{% for driver, sessions in driver_sessions.items %}
-  <li><a href="{% url 'driver_eyes_captured' driver.id %}">{{ driver.email }} Sessions</a></li>
-  {% for session in sessions %}
-    <div>{{forloop.counter}} - {{session}}</div>
-  {% endfor %}
-{% endfor %}
-</ul>
+  </ul>
+</body>
+</html>
